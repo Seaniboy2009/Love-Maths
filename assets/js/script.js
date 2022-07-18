@@ -16,11 +16,21 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+
+        if(event.key === "Enter") {
+            checkAnswer();
+        }
+    })
+
     runGame("addition");
 })
 
 /** the main game loop, this runs then the game starts and when the submit button is pressed */
 function runGame(gameType) {
+
+    document.getElementById("answer-box").value = "";
+    document.getElementById("answer-box").focus();
 
     //creates two random numbers when run
     let num1 = Math.floor(Math.random() * 24) + 1;
