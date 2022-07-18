@@ -2,13 +2,13 @@
 // get the button elements and add event listiners to them
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked submit");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType)
@@ -35,11 +35,35 @@ function runGame(gameType) {
 
 }
 
+/** check if the users answer is the same as the calculated correct answer */
 function checkAnswer() {
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let correctAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === correctAnswer[0];
 
+    if(isCorrect) {
+        alert("Hey! you got it correct :)");
+    } else {
+        alert(`awwwww...... you answered ${userAnswer}, but the correct answer was ${correctAnswer[0]}!`);
+    }
+
+    runGame(correctAnswer[1]);
 }
 
+/** gets the operands and the operator from the dom and returns the correct answer */
 function calculateCorrectAnswer() {
+
+    // parseint is converting the string to an int
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    let operator = document.getElementById("operator").innerText;
+
+    if(operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`Unimplimented operator ${operator}`);
+        throw `Unimplimented operator ${operator}. Aborting!`;
+    }
 
 }
 
